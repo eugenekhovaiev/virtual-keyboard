@@ -1,0 +1,46 @@
+.button {
+  color: $letter-color;
+  font-size: 1rem;
+
+  padding: 0 1em;
+  min-width: 3em;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  background-color: $button-color;
+  border: none;
+  border-radius: 5px;
+
+  // transition: 0.1s all;
+  transition:  0.1s all;
+  cursor: pointer;
+
+  // .button__main-symbol
+  // &__main-symbol {}
+
+  // .button__shift-symbol
+  &__shift-symbol {
+    position: absolute;
+    top: 9%;
+    left: 9%;
+
+    // font-size: 1.7rem;
+    font-size: 0.5rem;
+  }
+
+  &_func {
+    background-color: $func-button-color;
+  }
+
+  &_active {
+    transform: translateY(3px);
+    background-color: $active-button-color;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
