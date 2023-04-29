@@ -35,12 +35,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const keyboardCodesRow4 = ['ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'];
   const keyboardCodesRow5 = ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'MetaRight', 'ContextMenu', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
   
-  const engKeyboardRow1Shift = [{"Backquote": "~"}, {"Digit1": "!"}, {"Digit2": "@"}, {"Digit3": "#"}, {"Digit4": "$"}, {"Digit5": "%"}, {"Digit6": "^"}, {"Digit7": "&"}, {"Digit8": "*"}, {"Digit9": "("}, {"Digit0": ")"}, {"Minus": "_"}, {"Equal": "+"}];
-  const engKeyboardRow1 = [{"Backquote": "`"}, {"Digit1": "1"}, {"Digit2": "2"}, {"Digit3": "3"}, {"Digit4": "4"}, {"Digit5": "5"}, {"Digit6": "6"}, {"Digit7": "7"}, {"Digit8": "8"}, {"Digit9": "9"}, {"Digit0": "0"}, {"Minus": "-"}, {"Equal": "="}, {"Backspace": "Backspace"}];
-  const engKeyboardRow2 = [{"Tab": "Tab"}, {"KeyQ": "q"}, {"KeyW": "w"}, {"KeyE": "e"}, {"KeyR": "r"}, {"KeyT": "t"}, {"KeyY": "y"}, {"KeyU": "u"}, {"KeyI": "i"}, {"KeyO": "o"}, {"KeyP": "p"}, {"BracketLeft": "["}, {"BracketRight": "]"}, {"Backslash": "\\"}, {"Delete": "Del"}];
-  const engKeyboardRow3 = [{"CapsLock": "CapsLock"},{"KeyA": "a"},{"KeyS": "s"},{"KeyD": "d"},{"KeyF": "f"},{"KeyG": "g"},{"KeyH": "h"},{"KeyJ": "j"},{"KeyK": "k"},{"KeyL": "l"},{"Semicolon": ";"},{"Quote": "'"},{"Enter": "Enter"}];
-  const engKeyboardRow4 = [{"ShiftLeft": "Shift"}, {"IntlBackslash": "\\"}, {"KeyZ": "z"}, {"KeyX": "x"}, {"KeyC": "c"}, {"KeyV": "v"}, {"KeyB": "b"}, {"KeyN": "n"}, {"KeyM": "m"}, {"Comma": ","}, {"Period": "."}, {"Slash": "/"}, {"ArrowUp": "Up"}, {"ShiftRight": "Shift"}];
-  const engKeyboardRow5 = [{"ControlLeft": "Ctrl"}, {"MetaLeft": "Win"}, {"AltLeft": "Alt"}, {"Space": " "}, {"AltRight": "Alt"}, {"MetaRight": "Win"}, {"ContextMenu": "Cont"}, {"ControlRight": "Ctrl"}, {"ArrowLeft": "Left"}, {"ArrowDown": "Down"}, {"ArrowRight": "Right"}];
+  const engKeyboardRow1Shift = [{'Backquote': '~'}, {'Digit1': '!'}, {'Digit2': '@'}, {'Digit3': '#'}, {'Digit4': '$'}, {'Digit5': '%'}, {'Digit6': '^'}, {'Digit7': '&'}, {'Digit8': '*'}, {'Digit9': '('}, {'Digit0': ')'}, {'Minus': '_'}, {'Equal': '+'}];
+  const engKeyboardRow1 = [{'Backquote': '`', shift: '~'}, {'Digit1': '1', shift: '!'}, {'Digit2': '2', shift: '@'}, {'Digit3': '3', shift: '#'}, {'Digit4': '4', shift: '$'}, {'Digit5': '5', shift: '%'}, {'Digit6': '6', shift: '^'}, {'Digit7': '7', shift: '&'}, {'Digit8': '8', shift: '*'}, {'Digit9': '9', shift: '('}, {'Digit0': '0', shift: ')'}, {'Minus': '-', shift: '_'}, {'Equal': '=', shift: '+'}, {'Backspace': 'Backspace'}];
+  const engKeyboardRow2 = [{'Tab': 'Tab'}, {'KeyQ': 'q'}, {'KeyW': 'w'}, {'KeyE': 'e'}, {'KeyR': 'r'}, {'KeyT': 't'}, {'KeyY': 'y'}, {'KeyU': 'u'}, {'KeyI': 'i'}, {'KeyO': 'o'}, {'KeyP': 'p'}, {'BracketLeft': '[', shift: '{'}, {'BracketRight': ']', shift: '}'}, {'Backslash': '\\', shift: '|'}, {'Delete': 'Del'}];
+  const engKeyboardRow3 = [{'CapsLock': 'Caps Lock'}, {'KeyA': 'a'}, {'KeyS': 's'}, {'KeyD': 'd'}, {'KeyF': 'f'}, {'KeyG': 'g'}, {'KeyH': 'h'}, {'KeyJ': 'j'}, {'KeyK': 'k'}, {'KeyL': 'l'}, {'Semicolon': ';', shift: ':'}, {'Quote': "'", shift: '"'}, {'Enter': 'Enter'}];
+  const engKeyboardRow4 = [{'ShiftLeft': 'Shift'}, {'IntlBackslash': '\\', shift: "|"}, {'KeyZ': 'z'}, {'KeyX': 'x'}, {'KeyC': 'c'}, {'KeyV': 'v'}, {'KeyB': 'b'}, {'KeyN': 'n'}, {'KeyM': 'm'}, {'Comma': ',', shift: "<"}, {'Period': '.', shift: ">"}, {'Slash': '/', shift: "?"}, {'ArrowUp': 'Up'}, {'ShiftRight': 'Shift'}];
+  const engKeyboardRow5 = [{'ControlLeft': 'Ctrl'}, {'MetaLeft': 'Win'}, {'AltLeft': 'Alt'}, {'Space': ' '}, {'AltRight': 'Alt'}, {'MetaRight': 'Win'}, {'ContextMenu': 'Cont'}, {'ControlRight': 'Ctrl'}, {'ArrowLeft': 'Left'}, {'ArrowDown': 'Down'}, {'ArrowRight': 'Right'}];
   // const engKeyboardRow1Shift = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+'];
   // const engKeyboardRow1 = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'];
   // const engKeyboardRow2 = ['Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete'];
@@ -48,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // const engKeyboardRow4 = ['Shift', '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift'];
   // const engKeyboardRow5 = ['Control', 'Meta', 'Alt', ' ', 'Alt', 'Meta', 'ContextMenu', 'Control', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 
-  const rusKeyboardRow1Shift = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+'];
+  const rusKeyboardRow1Shift = ['Ё', '!', "'", '№', ';', '%', ':', '?', '*', '(', ')', '_', '+'];
   const rusKeyboardRow1 = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'];
   const rusKeyboardRow2 = ['Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete'];
   const rusKeyboardRow3 = ['CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter'];
@@ -88,8 +88,8 @@ window.addEventListener('DOMContentLoaded', () => {
     return container;
   }
 
-  function createButton(key, code, where) {
-    const button = new KeyboardButton(key, code);
+  function createButton(key, code, shift, where) {
+    const button = new KeyboardButton(key, code, shift);
     where.insertAdjacentElement('beforeend', button.getElem());
 
     buttonsObj[code] = button.getElem();
@@ -108,7 +108,13 @@ window.addEventListener('DOMContentLoaded', () => {
     keyboardRow.forEach(item => {
       const code = Object.keys(item)[0];
       const key = item[code];
-      createButton(key, code, row);
+      let shift;
+      if (item.shift) {
+        shift = item.shift;
+      } else {
+        shift = '';
+      }
+      createButton(key, code, shift, row);
     });
   }
 
