@@ -1,6 +1,7 @@
 .button {
   color: $letter-color;
   font-size: 1rem;
+  font-weight: 700;
 
   padding: 0 1em;
   min-width: 3em;
@@ -25,10 +26,10 @@
   &__shift-symbol {
     position: absolute;
     top: 9%;
-    left: 9%;
+    left: 13%;
 
     // font-size: 1.7rem;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
   }
 
   &_func {
@@ -36,11 +37,15 @@
   }
 
   &_active {
-    transform: translateY(3px);
+    transform: translateY(2px);
     background-color: $active-button-color;
+    // color: $func-button-color;
   }
 
   &:hover {
     transform: scale(1.05);
+    background-color: $letter-color;
+    border: 1px solid black;
+    color: $button-color;
   }
 }

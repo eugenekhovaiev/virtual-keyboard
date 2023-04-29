@@ -5,6 +5,8 @@
   
   &__row {
     display: flex;
+    justify-content: start;
     justify-content: space-between;
+    column-gap: 0.5em;
   }
 }

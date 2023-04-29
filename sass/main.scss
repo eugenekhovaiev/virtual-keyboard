@@ -2,11 +2,15 @@
 @import 'abstracts/variables';
 
 .container {
-  width: 80%;
+  width: 840px;
   margin: 0 auto;
   // display: flex;
   // flex-wrap: wrap;
   // gap: 1rem;
+}
+
+body {
+  background-color: $main-bg-color;
 }
 
 @import 'components/button';
