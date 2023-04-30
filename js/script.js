@@ -69,6 +69,10 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('keydown', changeButton);
   window.addEventListener('keyup', changeButton);
 
+  let selectedButton;
+  window.addEventListener('mousedown', changeButtonByClick);
+  window.addEventListener('mouseup', changeButtonByClick);
+
 
   function changeButton(event) {
     event.preventDefault();
@@ -79,6 +83,16 @@ window.addEventListener('DOMContentLoaded', () => {
       buttonsObj[code].classList.toggle('button_active');
     } else return;
 
+  }
+
+  function changeButtonByClick(event) {
+    const target = event.target.closest('.button');
+    
+    if (event.type === 'mousedown') {
+      if (!target) return;
+      selectedButton = target;
+    }
+    selectedButton.classList.toggle('button_active');
   }
 
   function createContainer(where) {
