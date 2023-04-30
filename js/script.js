@@ -10,16 +10,39 @@ window.addEventListener('DOMContentLoaded', () => {
       this.button.className = 'button';
 
       if (mainSymbol.length !== 1) {
-        this.button.classList.add('button_func');
-      } else if (mainSymbol === ' ') {
-        this.button.classList.add('button_space');
-      } else {
+        this.addModClass('button_func');
+      } else if (code.includes('Key')) {
         mainSymbol = mainSymbol.toUpperCase();
       }
 
+      switch (code) {
+        case 'Space':
+          this.addModClass('button_space');
+          break;
+        case 'ShiftRight':
+          this.addModClass('button_right-shift');
+          break;
+        case 'ShiftLeft':
+          this.addModClass('button_left-shift');
+          break;
+        case 'Enter':
+          this.addModClass('button_enter');
+          break;
+        case 'CapsLock':
+          this.addModClass('button_caps');
+          break;
+        case 'Tab':
+          this.addModClass('button_tab');
+          break;
+      }
+      
       this.button.innerHTML = `
         <div class="button__main-symbol">${mainSymbol}</div>
         <div class="button__shift-symbol">${shiftSymbol}</div>\n`;
+    }
+
+    addModClass(modClass) {
+      this.button.classList.add(modClass);
     }
   
     getElem() {
@@ -108,13 +131,12 @@ window.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     if (event.repeat) return;
     let code = event.code;
-    // console.log(code);
     if (buttonsObj[code]) {
       buttonsObj[code].classList.toggle('button_active');
     } else return;
-
+    
   }
-
+  
   function changeButtonByClick(event) {
     const target = event.target.closest('.button');
     

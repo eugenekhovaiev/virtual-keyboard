@@ -66,6 +66,28 @@
     width: 19rem;
   }
 
+  &_right-shift {
+    width: 3em;
+  }
+
+  &_left-shift {
+    width: 7em;
+  }
+
+  &_enter {
+    width: 8em;
+  }
+
+  &_caps {
+    width: 6em;
+    padding: 0;
+  }
+
+  &_tab {
+    width: 7em;
+    padding: 0;
+  }
+
   &:hover {
     background-color: $letter-color;
     color: $button-color;
