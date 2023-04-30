@@ -3,7 +3,7 @@
   font-size: 1rem;
   font-weight: 700;
 
-  padding: 0 1em;
+  padding: 1em;
   min-width: 3em;
   height: 3em;
   display: flex;
@@ -20,7 +20,33 @@
   cursor: pointer;
 
   // .button__main-symbol
-  // &__main-symbol {}
+  &__main-symbol {
+    display: flex;
+    transition:  0.1s all;
+  }
+
+  // .button__icon
+  &__icon {
+    width: 1em;
+    height: 1em;
+    transition:  0.1s all;
+
+    g {
+      fill: $letter-color;
+    }
+
+    &_right {
+      transform: rotate(90deg);
+    }
+
+    &_down {
+      transform: rotate(180deg);
+    }
+
+    &_left {
+      transform: rotate(-90deg);
+    }
+  }
 
   // .button__shift-symbol
   &__shift-symbol {
@@ -41,6 +67,12 @@
     background-color: $letter-color;
     border: 1px solid black;
     color: $button-color;
+
+    .button__icon {
+      g {
+        fill: $button-color;
+      }
+    }
   }
 
   &_active,
@@ -48,5 +80,11 @@
     transform: translateY(2px);
     background-color: $active-button-color;
     color: $letter-color;
+
+    .button__icon {
+      g {
+        fill: $letter-color;
+      }
+    }
   }
 }
