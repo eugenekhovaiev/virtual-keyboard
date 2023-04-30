@@ -36,16 +36,17 @@
     background-color: $func-button-color;
   }
 
-  &_active {
-    transform: translateY(2px);
-    background-color: $active-button-color;
-    // color: $func-button-color;
-  }
-
   &:hover {
     transform: scale(1.05);
     background-color: $letter-color;
     border: 1px solid black;
     color: $button-color;
+  }
+
+  &_active,
+  &:active {
+    transform: translateY(2px);
+    background-color: $active-button-color;
+    color: $letter-color;
   }
 }
