@@ -67,9 +67,7 @@
   }
 
   &:hover {
-    transform: scale(1.05);
     background-color: $letter-color;
-    border: 1px solid black;
     color: $button-color;
 
     .button__icon {
