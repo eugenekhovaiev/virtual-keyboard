@@ -143,8 +143,12 @@ window.addEventListener('DOMContentLoaded', () => {
     if (event.type === 'mousedown') {
       if (!target) return;
       selectedButton = target;
+      selectedButton.classList.toggle('button_active');
+    } else {
+      if (!selectedButton) return;
+      selectedButton.classList.toggle('button_active');
+      selectedButton = null;
     }
-    selectedButton.classList.toggle('button_active');
   }
 
   function createContainer(where) {
