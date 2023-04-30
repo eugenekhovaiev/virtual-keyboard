@@ -62,6 +62,10 @@
     background-color: $func-button-color;
   }
 
+  &_space {
+    width: 19rem;
+  }
+
   &:hover {
     transform: scale(1.05);
     background-color: $letter-color;

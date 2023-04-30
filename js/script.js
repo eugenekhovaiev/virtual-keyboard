@@ -11,6 +11,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
       if (mainSymbol.length !== 1) {
         this.button.classList.add('button_func');
+      } else if (mainSymbol === ' ') {
+        this.button.classList.add('button_space');
       } else {
         mainSymbol = mainSymbol.toUpperCase();
       }
