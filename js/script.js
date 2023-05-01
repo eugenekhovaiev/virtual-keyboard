@@ -1,4 +1,3 @@
-'use strict';
 window.addEventListener('DOMContentLoaded', () => {
   class KeyboardButton {
     constructor(mainSymbol, code, shiftSymbol = '') {
@@ -9,15 +8,15 @@ window.addEventListener('DOMContentLoaded', () => {
       this.button = document.createElement('button');
       this.button.setAttribute('data-code', code);
       this.button.className = 'button';
-      
+
       if (mainSymbol.length !== 1) {
         this.addModClass('button_func');
         this.button.setAttribute('data-symbol', '');
         this.button.setAttribute('data-shift-symbol', '');
       } else if (!code.includes('Digit') && !shiftSymbol) {
         this.button.setAttribute('data-symbol', mainSymbol);
-        mainSymbol = mainSymbol.toUpperCase();
-        this.button.setAttribute('data-shift-symbol', mainSymbol);
+        this.mainSymbol = mainSymbol.toUpperCase();
+        this.button.setAttribute('data-shift-symbol', this.mainSymbol);
       } else {
         this.button.setAttribute('data-symbol', mainSymbol);
         this.button.setAttribute('data-shift-symbol', shiftSymbol);
@@ -70,25 +69,60 @@ window.addEventListener('DOMContentLoaded', () => {
         case 'Delete':
           this.button.setAttribute('data-symbol', 'delete');
           break;
+        default:
+          break;
       }
-      
+
       this.button.innerHTML = `
-        <div class="button__main-symbol">${mainSymbol}</div>
-        <div class="button__shift-symbol">${shiftSymbol}</div>\n`;
+        <div class="button__main-symbol">${this.mainSymbol}</div>
+        <div class="button__shift-symbol">${this.shiftSymbol}</div>\n`;
     }
 
     addModClass(modClass) {
       this.button.classList.add(modClass);
     }
-  
+
     getElem() {
       return this.button;
     }
-  
+
     getHTML() {
       return this.button.outerHTML;
     }
   }
+
+  function createIconWithClass(directionClass) {
+    const arrowIcon = `
+    <svg class="button__icon ${directionClass}" width="800px" height="800px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="drop" fill="#000000" transform="translate(32.000000, 42.666667)">
+          <path d="M246.312928,5.62892705 C252.927596,9.40873724 258.409564,14.8907053 262.189374,21.5053731 L444.667042,340.84129 C456.358134,361.300701 449.250007,387.363834 428.790595,399.054926 C422.34376,402.738832 415.04715,404.676552 407.622001,404.676552 L42.6666667,404.676552 C19.1025173,404.676552 7.10542736e-15,385.574034 7.10542736e-15,362.009885 C7.10542736e-15,354.584736 1.93772021,347.288125 5.62162594,340.84129 L188.099293,21.5053731 C199.790385,1.04596203 225.853517,-6.06216498 246.312928,5.62892705 Z" id="Combined-Shape">
+          </path>
+        </g>
+      </g>
+    </svg>`;
+    return arrowIcon;
+  }
+
+  function createCustomElem(tag, className, position, where) {
+    const elem = document.createElement(tag);
+    elem.className = className;
+    where.insertAdjacentElement(position, elem);
+    return elem;
+  }
+
+  const container = createCustomElem('main', 'container', 'afterbegin', document.body);
+
+  function createHeader() {
+    const header = createCustomElem('h1', 'header', 'beforeend', container);
+    header.innerHTML = `
+    Hello! This is my virtual keyboard. Created on Windows.<br>
+    Change language layout by pressing ctrlLeft + altLeft.
+    `;
+  }
+  createHeader();
+
+  const textarea = createCustomElem('textarea', 'textarea', 'beforeend', container);
 
   const windowsIcon = `
   <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="0 0 20 20" version="1.1"> 
@@ -103,30 +137,17 @@ window.addEventListener('DOMContentLoaded', () => {
     </g>
   </svg>`;
 
-  function createIconWithClass(directionClass) {
-    const arrowIcon = `
-    <svg class="button__icon ${directionClass}" width="800px" height="800px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="drop" fill="#000000" transform="translate(32.000000, 42.666667)">
-          <path d="M246.312928,5.62892705 C252.927596,9.40873724 258.409564,14.8907053 262.189374,21.5053731 L444.667042,340.84129 C456.358134,361.300701 449.250007,387.363834 428.790595,399.054926 C422.34376,402.738832 415.04715,404.676552 407.622001,404.676552 L42.6666667,404.676552 C19.1025173,404.676552 7.10542736e-15,385.574034 7.10542736e-15,362.009885 C7.10542736e-15,354.584736 1.93772021,347.288125 5.62162594,340.84129 L188.099293,21.5053731 C199.790385,1.04596203 225.853517,-6.06216498 246.312928,5.62892705 Z" id="Combined-Shape">
-          </path>
-        </g>
-      </g>
-    </svg>`;
-    return arrowIcon;
-  }
-  
-  const enKeyboardRow1 = [{'Backquote': '`', shift: '~'}, {'Digit1': '1', shift: '!'}, {'Digit2': '2', shift: '@'}, {'Digit3': '3', shift: '#'}, {'Digit4': '4', shift: '$'}, {'Digit5': '5', shift: '%'}, {'Digit6': '6', shift: '^'}, {'Digit7': '7', shift: '&'}, {'Digit8': '8', shift: '*'}, {'Digit9': '9', shift: '('}, {'Digit0': '0', shift: ')'}, {'Minus': '-', shift: '_'}, {'Equal': '=', shift: '+'}, {'Backspace': 'Backspace'}];
-  const enKeyboardRow2 = [{'Tab': 'Tab'}, {'KeyQ': 'q'}, {'KeyW': 'w'}, {'KeyE': 'e'}, {'KeyR': 'r'}, {'KeyT': 't'}, {'KeyY': 'y'}, {'KeyU': 'u'}, {'KeyI': 'i'}, {'KeyO': 'o'}, {'KeyP': 'p'}, {'BracketLeft': '[', shift: '{'}, {'BracketRight': ']', shift: '}'}, {'Backslash': '\\', shift: '|'}, {'Delete': 'Del'}];
-  const enKeyboardRow3 = [{'CapsLock': 'Caps Lock'}, {'KeyA': 'a'}, {'KeyS': 's'}, {'KeyD': 'd'}, {'KeyF': 'f'}, {'KeyG': 'g'}, {'KeyH': 'h'}, {'KeyJ': 'j'}, {'KeyK': 'k'}, {'KeyL': 'l'}, {'Semicolon': ';', shift: ':'}, {'Quote': "'", shift: '"'}, {'Enter': 'Enter'}];
-  const enKeyboardRow4 = [{'ShiftLeft': 'Shift'}, {'IntlBackslash': '\\', shift: "|"}, {'KeyZ': 'z'}, {'KeyX': 'x'}, {'KeyC': 'c'}, {'KeyV': 'v'}, {'KeyB': 'b'}, {'KeyN': 'n'}, {'KeyM': 'm'}, {'Comma': ',', shift: "<"}, {'Period': '.', shift: ">"}, {'Slash': '/', shift: "?"}, {'ArrowUp': `${createIconWithClass('button__icon_up')}`}, {'ShiftRight': 'Shift'}];
-  const enKeyboardRow5 = [{'ControlLeft': 'Ctrl'}, {'MetaLeft': `${windowsIcon}`}, {'AltLeft': 'Alt'}, {'Space': ' '}, {'AltRight': 'Alt'}, {'MetaRight': `${windowsIcon}`}, {'ControlRight': 'Ctrl'}, {'ArrowLeft': `${createIconWithClass('button__icon_left')}`}, {'ArrowDown': `${createIconWithClass('button__icon_down')}`}, {'ArrowRight': `${createIconWithClass('button__icon_right')}`}];
-  
-  const ruKeyboardRow1 = [{'Backquote': 'ё'}, {'Digit1': '1', shift: '!'}, {'Digit2': '2', shift: '"'}, {'Digit3': '3', shift: '№'}, {'Digit4': '4', shift: ';'}, {'Digit5': '5', shift: '%'}, {'Digit6': '6', shift: ':'}, {'Digit7': '7', shift: '?'}, {'Digit8': '8', shift: '*'}, {'Digit9': '9', shift: '('}, {'Digit0': '0', shift: ')'}, {'Minus': '-', shift: '_'}, {'Equal': '=', shift: '+'}, {'Backspace': 'Backspace'}];
-  const ruKeyboardRow2 = [{'Tab': 'Tab'}, {'KeyQ': 'й'}, {'KeyW': 'ц'}, {'KeyE': 'у'}, {'KeyR': 'к'}, {'KeyT': 'е'}, {'KeyY': 'н'}, {'KeyU': 'г'}, {'KeyI': 'ш'}, {'KeyO': 'щ'}, {'KeyP': 'з'}, {'BracketLeft': 'х'}, {'BracketRight': 'ъ'}, {'Backslash': '\\', shift: '/'}, {'Delete': 'Del'}];
-  const ruKeyboardRow3 = [{'CapsLock': 'Caps Lock'}, {'KeyA': 'ф'}, {'KeyS': 'ы'}, {'KeyD': 'в'}, {'KeyF': 'а'}, {'KeyG': 'п'}, {'KeyH': 'р'}, {'KeyJ': 'о'}, {'KeyK': 'л'}, {'KeyL': 'д'}, {'Semicolon': 'ж'}, {'Quote': "э"}, {'Enter': 'Enter'}];
-  const ruKeyboardRow4 = [{'ShiftLeft': 'Shift'}, {'IntlBackslash': '\\', shift: "/"}, {'KeyZ': 'я'}, {'KeyX': 'ч'}, {'KeyC': 'с'}, {'KeyV': 'м'}, {'KeyB': 'и'}, {'KeyN': 'т'}, {'KeyM': 'ь'}, {'Comma': 'б'}, {'Period': 'ю'}, {'Slash': '.', shift: ","}, {'ArrowUp': `${createIconWithClass('button__icon_up')}`}, {'ShiftRight': 'Shift'}];
-  const ruKeyboardRow5 = [{'ControlLeft': 'Ctrl'}, {'MetaLeft': `${windowsIcon}`}, {'AltLeft': 'Alt'}, {'Space': ' '}, {'AltRight': 'Alt'}, {'MetaRight': `${windowsIcon}`}, {'ControlRight': 'Ctrl'}, {'ArrowLeft': `${createIconWithClass('button__icon_left')}`}, {'ArrowDown': `${createIconWithClass('button__icon_down')}`}, {'ArrowRight': `${createIconWithClass('button__icon_right')}`}];
+  const enKeyboardRow1 = [{ Backquote: '`', shift: '~' }, { Digit1: '1', shift: '!' }, { Digit2: '2', shift: '@' }, { Digit3: '3', shift: '#' }, { Digit4: '4', shift: '$' }, { Digit5: '5', shift: '%' }, { Digit6: '6', shift: '^' }, { Digit7: '7', shift: '&' }, { Digit8: '8', shift: '*' }, { Digit9: '9', shift: '(' }, { Digit0: '0', shift: ')' }, { Minus: '-', shift: '_' }, { Equal: '=', shift: '+' }, { Backspace: 'Backspace' }];
+  const enKeyboardRow2 = [{ Tab: 'Tab' }, { KeyQ: 'q' }, { KeyW: 'w' }, { KeyE: 'e' }, { KeyR: 'r' }, { KeyT: 't' }, { KeyY: 'y' }, { KeyU: 'u' }, { KeyI: 'i' }, { KeyO: 'o' }, { KeyP: 'p' }, { BracketLeft: '[', shift: '{' }, { BracketRight: ']', shift: '}' }, { Backslash: '\\', shift: '|' }, { Delete: 'Del' }];
+  const enKeyboardRow3 = [{ CapsLock: 'Caps Lock' }, { KeyA: 'a' }, { KeyS: 's' }, { KeyD: 'd' }, { KeyF: 'f' }, { KeyG: 'g' }, { KeyH: 'h' }, { KeyJ: 'j' }, { KeyK: 'k' }, { KeyL: 'l' }, { Semicolon: ';', shift: ':' }, { Quote: "'", shift: '"' }, { Enter: 'Enter' }];
+  const enKeyboardRow4 = [{ ShiftLeft: 'Shift' }, { IntlBackslash: '\\', shift: '|' }, { KeyZ: 'z' }, { KeyX: 'x' }, { KeyC: 'c' }, { KeyV: 'v' }, { KeyB: 'b' }, { KeyN: 'n' }, { KeyM: 'm' }, { Comma: ',', shift: '<' }, { Period: '.', shift: '>' }, { Slash: '/', shift: '?' }, { ArrowUp: `${createIconWithClass('button__icon_up')}` }, { ShiftRight: 'Shift' }];
+  const enKeyboardRow5 = [{ ControlLeft: 'Ctrl' }, { MetaLeft: `${windowsIcon}` }, { AltLeft: 'Alt' }, { Space: ' ' }, { AltRight: 'Alt' }, { MetaRight: `${windowsIcon}` }, { ControlRight: 'Ctrl' }, { ArrowLeft: `${createIconWithClass('button__icon_left')}` }, { ArrowDown: `${createIconWithClass('button__icon_down')}` }, { ArrowRight: `${createIconWithClass('button__icon_right')}` }];
+
+  const ruKeyboardRow1 = [{ Backquote: 'ё' }, { Digit1: '1', shift: '!' }, { Digit2: '2', shift: '"' }, { Digit3: '3', shift: '№' }, { Digit4: '4', shift: ';' }, { Digit5: '5', shift: '%' }, { Digit6: '6', shift: ':' }, { Digit7: '7', shift: '?' }, { Digit8: '8', shift: '*' }, { Digit9: '9', shift: '(' }, { Digit0: '0', shift: ')' }, { Minus: '-', shift: '_' }, { Equal: '=', shift: '+' }, { Backspace: 'Backspace' }];
+  const ruKeyboardRow2 = [{ Tab: 'Tab' }, { KeyQ: 'й' }, { KeyW: 'ц' }, { KeyE: 'у' }, { KeyR: 'к' }, { KeyT: 'е' }, { KeyY: 'н' }, { KeyU: 'г' }, { KeyI: 'ш' }, { KeyO: 'щ' }, { KeyP: 'з' }, { BracketLeft: 'х' }, { BracketRight: 'ъ' }, { Backslash: '\\', shift: '/' }, { Delete: 'Del' }];
+  const ruKeyboardRow3 = [{ CapsLock: 'Caps Lock' }, { KeyA: 'ф' }, { KeyS: 'ы' }, { KeyD: 'в' }, { KeyF: 'а' }, { KeyG: 'п' }, { KeyH: 'р' }, { KeyJ: 'о' }, { KeyK: 'л' }, { KeyL: 'д' }, { Semicolon: 'ж' }, { Quote: 'э' }, { Enter: 'Enter' }];
+  const ruKeyboardRow4 = [{ ShiftLeft: 'Shift' }, { IntlBackslash: '\\', shift: '/' }, { KeyZ: 'я' }, { KeyX: 'ч' }, { KeyC: 'с' }, { KeyV: 'м' }, { KeyB: 'и' }, { KeyN: 'т' }, { KeyM: 'ь' }, { Comma: 'б' }, { Period: 'ю' }, { Slash: '.', shift: ',' }, { ArrowUp: `${createIconWithClass('button__icon_up')}` }, { ShiftRight: 'Shift' }];
+  const ruKeyboardRow5 = [{ ControlLeft: 'Ctrl' }, { MetaLeft: `${windowsIcon}` }, { AltLeft: 'Alt' }, { Space: ' ' }, { AltRight: 'Alt' }, { MetaRight: `${windowsIcon}` }, { ControlRight: 'Ctrl' }, { ArrowLeft: `${createIconWithClass('button__icon_left')}` }, { ArrowDown: `${createIconWithClass('button__icon_down')}` }, { ArrowRight: `${createIconWithClass('button__icon_right')}` }];
 
   if (!sessionStorage.getItem('lang')) {
     sessionStorage.setItem('lang', 'en');
@@ -134,27 +155,63 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const buttonsObj = {};
 
-  const container = createCustomElem('main', 'container', 'afterbegin', document.body);
-  createHeader();
-  const textarea = createCustomElem('textarea', 'textarea', 'beforeend', container);
-  let keyboard = createKeyboard(sessionStorage.getItem('lang'), container);
+  function createButton(key, code, shift, where) {
+    const button = new KeyboardButton(key, code, shift);
+    where.insertAdjacentElement('beforeend', button.getElem());
 
-  window.addEventListener('keydown', changeButton);
-  window.addEventListener('keyup', changeButton);
+    buttonsObj[code] = button.getElem();
+    return button;
+  }
 
-  let selectedButton;
-  window.addEventListener('mousedown', changeButtonByClick);
-  window.addEventListener('mouseup', changeButtonByClick);
-  
-  let caps = false;
-  window.addEventListener('click', interactWithTextarea);
-  window.addEventListener('keydown', interactWithTextarea);
+  function fillRowFrom(keyboardRow, where) {
+    const row = createCustomElem('div', 'keyboard__row', 'beforeend', where);
+    keyboardRow.forEach((item) => {
+      const code = Object.keys(item)[0];
+      const key = item[code];
+      let shift;
+      if (item.shift) {
+        shift = item.shift;
+      } else {
+        shift = '';
+      }
+      createButton(key, code, shift, row);
+    });
+  }
 
-  window.addEventListener('keydown', event => {
-    if (event.altKey && event.ctrlKey) {
-      setTimeout(changeLang, 100);
+  function changeButton(event) {
+    event.preventDefault();
+    if (event.repeat) return;
+    const { code } = event;
+
+    if (buttonsObj[code]) {
+      if (event.type === 'keydown') {
+        buttonsObj[code].classList.add('button_active');
+      } else if (event.type === 'keyup') {
+        buttonsObj[code].classList.remove('button_active');
+      }
     }
-  });
+  }
+
+  function createKeyboard(lang, where) {
+    let kboardArr;
+    if (lang === 'en') {
+      kboardArr = [enKeyboardRow1, enKeyboardRow2, enKeyboardRow3, enKeyboardRow4, enKeyboardRow5];
+    } else if (lang === 'ru') {
+      kboardArr = [ruKeyboardRow1, ruKeyboardRow2, ruKeyboardRow3, ruKeyboardRow4, ruKeyboardRow5];
+    }
+
+    const keyboard = document.createElement('div');
+    keyboard.className = 'keyboard';
+
+    kboardArr.forEach((row) => {
+      fillRowFrom(row, keyboard);
+    });
+
+    where.insertAdjacentElement('beforeend', keyboard);
+    return keyboard;
+  }
+
+  let keyboardElem = createKeyboard(sessionStorage.getItem('lang'), container);
 
   function changeLang() {
     if (sessionStorage.getItem('lang') === 'en') {
@@ -162,10 +219,31 @@ window.addEventListener('DOMContentLoaded', () => {
     } else if (sessionStorage.getItem('lang') === 'ru') {
       sessionStorage.setItem('lang', 'en');
     }
-    keyboard.remove();
-    keyboard = createKeyboard(sessionStorage.getItem('lang'), container);
+    keyboardElem.remove();
+    keyboardElem = createKeyboard(sessionStorage.getItem('lang'), container);
   }
 
+  window.addEventListener('keydown', changeButton);
+  window.addEventListener('keyup', changeButton);
+
+  let selectedButton;
+  function changeButtonByClick(event) {
+    const target = event.target.closest('.button');
+
+    if (event.type === 'mousedown') {
+      if (!target) return;
+      selectedButton = target;
+      selectedButton.classList.add('button_active');
+    } else {
+      if (!selectedButton) return;
+      selectedButton.classList.remove('button_active');
+      selectedButton = null;
+    }
+  }
+  window.addEventListener('mousedown', changeButtonByClick);
+  window.addEventListener('mouseup', changeButtonByClick);
+
+  let caps = false;
   function interactWithTextarea(event) {
     let target;
     if (event.type === 'click') {
@@ -179,20 +257,21 @@ window.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    let selectionStart = textarea.selectionStart;
-    let selectionEnd = textarea.selectionEnd;
-    let cursorPos = selectionStart;
+    const { selectionStart } = textarea;
+    const { selectionEnd } = textarea;
+    const cursorPos = selectionStart;
+    const { value } = textarea;
 
     if ((target.dataset.symbol === 'backspace' || target.dataset.symbol === 'delete') && selectionStart !== selectionEnd) {
-      textarea.value = textarea.value.slice(0, selectionStart) + textarea.value.slice(selectionEnd);
+      textarea.value = value.slice(0, selectionStart) + value.slice(selectionEnd);
       textarea.selectionStart = cursorPos;
       textarea.selectionEnd = cursorPos;
     } else if (target.dataset.symbol === 'backspace') {
-      textarea.value = textarea.value.slice(0, selectionStart - 1) + textarea.value.slice(selectionEnd);
+      textarea.value = value.slice(0, selectionStart - 1) + value.slice(selectionEnd);
       textarea.selectionStart = cursorPos - 1;
       textarea.selectionEnd = cursorPos - 1;
-    } else if(target.dataset.symbol === 'delete') {
-      textarea.value = textarea.value.slice(0, selectionStart) + textarea.value.slice(selectionEnd + 1);
+    } else if (target.dataset.symbol === 'delete') {
+      textarea.value = value.slice(0, selectionStart) + value.slice(selectionEnd + 1);
       textarea.selectionStart = cursorPos;
       textarea.selectionEnd = cursorPos;
     } else if (target.dataset.symbol === 'caps') {
@@ -207,100 +286,22 @@ window.addEventListener('DOMContentLoaded', () => {
           symbolToAdd = symbolToAdd.toUpperCase();
         }
       }
-  
+
       if (target.dataset.symbol) {
-        textarea.value = textarea.value.slice(0, selectionStart) + symbolToAdd + textarea.value.slice(selectionEnd);
+        textarea.value = value.slice(0, selectionStart) + symbolToAdd + value.slice(selectionEnd);
         textarea.selectionStart = cursorPos + 1;
         textarea.selectionEnd = cursorPos + 1;
       }
     }
 
-
     textarea.focus();
   }
+  window.addEventListener('click', interactWithTextarea);
+  window.addEventListener('keydown', interactWithTextarea);
 
-  function changeButton(event) {
-    event.preventDefault();
-    if (event.repeat) return;
-    let code = event.code;
-
-    if (buttonsObj[code]) {
-      if (event.type === 'keydown') {
-        buttonsObj[code].classList.add('button_active');
-      } else if (event.type === 'keyup') {
-        buttonsObj[code].classList.remove('button_active');
-      }
-    } else return;    
-  }
-  
-  function changeButtonByClick(event) {
-    const target = event.target.closest('.button');
-    
-    if (event.type === 'mousedown') {
-      if (!target) return;
-      selectedButton = target;
-      selectedButton.classList.add('button_active');
-    } else {
-      if (!selectedButton) return;
-      selectedButton.classList.remove('button_active');
-      selectedButton = null;
+  window.addEventListener('keydown', (event) => {
+    if (event.altKey && event.ctrlKey) {
+      setTimeout(changeLang, 100);
     }
-  }
-
-  function createCustomElem(tag, className, position, where) {
-    const elem = document.createElement(tag);
-    elem.className = className;
-    where.insertAdjacentElement(position, elem);
-    return elem;
-  }
-
-  function createButton(key, code, shift, where) {
-    const button = new KeyboardButton(key, code, shift);
-    where.insertAdjacentElement('beforeend', button.getElem());
-
-    buttonsObj[code] = button.getElem();
-    return button;
-  }
-
-  function createHeader() {
-    const header = createCustomElem('h1', 'header', 'beforeend', container);
-    header.innerHTML = `
-    Hello! This is my virtual keyboard. Created on Windows.<br>
-    Change language layout by pressing ctrlLeft + altLeft.
-    `;
-  }
-
-  function fillRowFrom(keyboardRow, where) {
-    const row = createCustomElem('div', 'keyboard__row', 'beforeend', where);
-    keyboardRow.forEach(item => {
-      const code = Object.keys(item)[0];
-      const key = item[code];
-      let shift;
-      if (item.shift) {
-        shift = item.shift;
-      } else {
-        shift = '';
-      }
-      createButton(key, code, shift, row);
-    });
-  }
-
-  function createKeyboard(lang, where) {
-    let keyboardArr;
-    if (lang === 'en') {
-      keyboardArr = [enKeyboardRow1, enKeyboardRow2, enKeyboardRow3, enKeyboardRow4, enKeyboardRow5];
-    } else if (lang === 'ru') {
-      keyboardArr = [ruKeyboardRow1, ruKeyboardRow2, ruKeyboardRow3, ruKeyboardRow4, ruKeyboardRow5];
-    } 
-
-    const keyboard = document.createElement('div');
-    keyboard.className = 'keyboard';
-
-    keyboardArr.forEach(row => {
-      fillRowFrom(row, keyboard);
-    });
-
-    where.insertAdjacentElement('beforeend', keyboard);
-    return keyboard;
-  }
+  });
 });
