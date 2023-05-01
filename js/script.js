@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
         this.addModClass('button_func');
         this.button.setAttribute('data-symbol', '');
         this.button.setAttribute('data-shift-symbol', '');
-      } else if (code.includes('Key')) {
+      } else if (!code.includes('Digit') && !shiftSymbol) {
         this.button.setAttribute('data-symbol', mainSymbol);
         mainSymbol = mainSymbol.toUpperCase();
         this.button.setAttribute('data-shift-symbol', mainSymbol);
@@ -22,8 +22,6 @@ window.addEventListener('DOMContentLoaded', () => {
         this.button.setAttribute('data-symbol', mainSymbol);
         this.button.setAttribute('data-shift-symbol', shiftSymbol);
       }
-
-      // if (code.includes('Key'))
 
       switch (code) {
         case 'Space':
@@ -117,35 +115,30 @@ window.addEventListener('DOMContentLoaded', () => {
     </svg>`;
     return arrowIcon;
   }
-
-  const keyboardCodesRow1 = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace'];
-  const keyboardCodesRow2 = ['Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete'];
-  const keyboardCodesRow3 = ['CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter'];
-  const keyboardCodesRow4 = ['ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight'];
-  const keyboardCodesRow5 = ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'MetaRight', 'ContextMenu', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
   
-  const engKeyboardRow1Shift = [{'Backquote': '~'}, {'Digit1': '!'}, {'Digit2': '@'}, {'Digit3': '#'}, {'Digit4': '$'}, {'Digit5': '%'}, {'Digit6': '^'}, {'Digit7': '&'}, {'Digit8': '*'}, {'Digit9': '('}, {'Digit0': ')'}, {'Minus': '_'}, {'Equal': '+'}];
-  const engKeyboardRow1 = [{'Backquote': '`', shift: '~'}, {'Digit1': '1', shift: '!'}, {'Digit2': '2', shift: '@'}, {'Digit3': '3', shift: '#'}, {'Digit4': '4', shift: '$'}, {'Digit5': '5', shift: '%'}, {'Digit6': '6', shift: '^'}, {'Digit7': '7', shift: '&'}, {'Digit8': '8', shift: '*'}, {'Digit9': '9', shift: '('}, {'Digit0': '0', shift: ')'}, {'Minus': '-', shift: '_'}, {'Equal': '=', shift: '+'}, {'Backspace': 'Backspace'}];
-  const engKeyboardRow2 = [{'Tab': 'Tab'}, {'KeyQ': 'q'}, {'KeyW': 'w'}, {'KeyE': 'e'}, {'KeyR': 'r'}, {'KeyT': 't'}, {'KeyY': 'y'}, {'KeyU': 'u'}, {'KeyI': 'i'}, {'KeyO': 'o'}, {'KeyP': 'p'}, {'BracketLeft': '[', shift: '{'}, {'BracketRight': ']', shift: '}'}, {'Backslash': '\\', shift: '|'}, {'Delete': 'Del'}];
-  const engKeyboardRow3 = [{'CapsLock': 'Caps Lock'}, {'KeyA': 'a'}, {'KeyS': 's'}, {'KeyD': 'd'}, {'KeyF': 'f'}, {'KeyG': 'g'}, {'KeyH': 'h'}, {'KeyJ': 'j'}, {'KeyK': 'k'}, {'KeyL': 'l'}, {'Semicolon': ';', shift: ':'}, {'Quote': "'", shift: '"'}, {'Enter': 'Enter'}];
-  const engKeyboardRow4 = [{'ShiftLeft': 'Shift'}, {'IntlBackslash': '\\', shift: "|"}, {'KeyZ': 'z'}, {'KeyX': 'x'}, {'KeyC': 'c'}, {'KeyV': 'v'}, {'KeyB': 'b'}, {'KeyN': 'n'}, {'KeyM': 'm'}, {'Comma': ',', shift: "<"}, {'Period': '.', shift: ">"}, {'Slash': '/', shift: "?"}, {'ArrowUp': `${createIconWithClass('button__icon_up')}`}, {'ShiftRight': 'Shift'}];
-  const engKeyboardRow5 = [{'ControlLeft': 'Ctrl'}, {'MetaLeft': `${windowsIcon}`}, {'AltLeft': 'Alt'}, {'Space': ' '}, {'AltRight': 'Alt'}, {'MetaRight': `${windowsIcon}`}, {'ControlRight': 'Ctrl'}, {'ArrowLeft': `${createIconWithClass('button__icon_left')}`}, {'ArrowDown': `${createIconWithClass('button__icon_down')}`}, {'ArrowRight': `${createIconWithClass('button__icon_right')}`}];
+  const enKeyboardRow1 = [{'Backquote': '`', shift: '~'}, {'Digit1': '1', shift: '!'}, {'Digit2': '2', shift: '@'}, {'Digit3': '3', shift: '#'}, {'Digit4': '4', shift: '$'}, {'Digit5': '5', shift: '%'}, {'Digit6': '6', shift: '^'}, {'Digit7': '7', shift: '&'}, {'Digit8': '8', shift: '*'}, {'Digit9': '9', shift: '('}, {'Digit0': '0', shift: ')'}, {'Minus': '-', shift: '_'}, {'Equal': '=', shift: '+'}, {'Backspace': 'Backspace'}];
+  const enKeyboardRow2 = [{'Tab': 'Tab'}, {'KeyQ': 'q'}, {'KeyW': 'w'}, {'KeyE': 'e'}, {'KeyR': 'r'}, {'KeyT': 't'}, {'KeyY': 'y'}, {'KeyU': 'u'}, {'KeyI': 'i'}, {'KeyO': 'o'}, {'KeyP': 'p'}, {'BracketLeft': '[', shift: '{'}, {'BracketRight': ']', shift: '}'}, {'Backslash': '\\', shift: '|'}, {'Delete': 'Del'}];
+  const enKeyboardRow3 = [{'CapsLock': 'Caps Lock'}, {'KeyA': 'a'}, {'KeyS': 's'}, {'KeyD': 'd'}, {'KeyF': 'f'}, {'KeyG': 'g'}, {'KeyH': 'h'}, {'KeyJ': 'j'}, {'KeyK': 'k'}, {'KeyL': 'l'}, {'Semicolon': ';', shift: ':'}, {'Quote': "'", shift: '"'}, {'Enter': 'Enter'}];
+  const enKeyboardRow4 = [{'ShiftLeft': 'Shift'}, {'IntlBackslash': '\\', shift: "|"}, {'KeyZ': 'z'}, {'KeyX': 'x'}, {'KeyC': 'c'}, {'KeyV': 'v'}, {'KeyB': 'b'}, {'KeyN': 'n'}, {'KeyM': 'm'}, {'Comma': ',', shift: "<"}, {'Period': '.', shift: ">"}, {'Slash': '/', shift: "?"}, {'ArrowUp': `${createIconWithClass('button__icon_up')}`}, {'ShiftRight': 'Shift'}];
+  const enKeyboardRow5 = [{'ControlLeft': 'Ctrl'}, {'MetaLeft': `${windowsIcon}`}, {'AltLeft': 'Alt'}, {'Space': ' '}, {'AltRight': 'Alt'}, {'MetaRight': `${windowsIcon}`}, {'ControlRight': 'Ctrl'}, {'ArrowLeft': `${createIconWithClass('button__icon_left')}`}, {'ArrowDown': `${createIconWithClass('button__icon_down')}`}, {'ArrowRight': `${createIconWithClass('button__icon_right')}`}];
+  
+  const ruKeyboardRow1 = [{'Backquote': 'ё'}, {'Digit1': '1', shift: '!'}, {'Digit2': '2', shift: '"'}, {'Digit3': '3', shift: '№'}, {'Digit4': '4', shift: ';'}, {'Digit5': '5', shift: '%'}, {'Digit6': '6', shift: ':'}, {'Digit7': '7', shift: '?'}, {'Digit8': '8', shift: '*'}, {'Digit9': '9', shift: '('}, {'Digit0': '0', shift: ')'}, {'Minus': '-', shift: '_'}, {'Equal': '=', shift: '+'}, {'Backspace': 'Backspace'}];
+  const ruKeyboardRow2 = [{'Tab': 'Tab'}, {'KeyQ': 'й'}, {'KeyW': 'ц'}, {'KeyE': 'у'}, {'KeyR': 'к'}, {'KeyT': 'е'}, {'KeyY': 'н'}, {'KeyU': 'г'}, {'KeyI': 'ш'}, {'KeyO': 'щ'}, {'KeyP': 'з'}, {'BracketLeft': 'х'}, {'BracketRight': 'ъ'}, {'Backslash': '\\', shift: '/'}, {'Delete': 'Del'}];
+  const ruKeyboardRow3 = [{'CapsLock': 'Caps Lock'}, {'KeyA': 'ф'}, {'KeyS': 'ы'}, {'KeyD': 'в'}, {'KeyF': 'а'}, {'KeyG': 'п'}, {'KeyH': 'р'}, {'KeyJ': 'о'}, {'KeyK': 'л'}, {'KeyL': 'д'}, {'Semicolon': 'ж'}, {'Quote': "э"}, {'Enter': 'Enter'}];
+  const ruKeyboardRow4 = [{'ShiftLeft': 'Shift'}, {'IntlBackslash': '\\', shift: "/"}, {'KeyZ': 'я'}, {'KeyX': 'ч'}, {'KeyC': 'с'}, {'KeyV': 'м'}, {'KeyB': 'и'}, {'KeyN': 'т'}, {'KeyM': 'ь'}, {'Comma': 'б'}, {'Period': 'ю'}, {'Slash': '.', shift: ","}, {'ArrowUp': `${createIconWithClass('button__icon_up')}`}, {'ShiftRight': 'Shift'}];
+  const ruKeyboardRow5 = [{'ControlLeft': 'Ctrl'}, {'MetaLeft': `${windowsIcon}`}, {'AltLeft': 'Alt'}, {'Space': ' '}, {'AltRight': 'Alt'}, {'MetaRight': `${windowsIcon}`}, {'ControlRight': 'Ctrl'}, {'ArrowLeft': `${createIconWithClass('button__icon_left')}`}, {'ArrowDown': `${createIconWithClass('button__icon_down')}`}, {'ArrowRight': `${createIconWithClass('button__icon_right')}`}];
 
-  const rusKeyboardRow1Shift = ['Ё', '!', "'", '№', ';', '%', ':', '?', '*', '(', ')', '_', '+'];
-  const rusKeyboardRow1 = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'];
-  const rusKeyboardRow2 = ['Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete'];
-  const rusKeyboardRow3 = ['CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter'];
-  const rusKeyboardRow4 = ['Shift', '/', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'ArrowUp', 'Shift'];
-  const rusKeyboardRow5 = ['Control', 'Meta', 'Alt', ' ', 'Alt', 'Meta', 'ContextMenu', 'Control', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
+  if (!sessionStorage.getItem('lang')) {
+    sessionStorage.setItem('lang', 'en');
+  }
 
-  let keyboardArr = [engKeyboardRow1, engKeyboardRow2, engKeyboardRow3, engKeyboardRow4, engKeyboardRow5];
   // console.log(keyboardArr);
   const buttonsObj = {};
 
   const container = createCustomElem('main', 'container', 'afterbegin', document.body);
   const textarea = createCustomElem('textarea', 'textarea', 'afterbegin', container);
 
-  createKeyboard(keyboardArr, container);
+  let keyboard = createKeyboard(sessionStorage.getItem('lang'), container);
 
   // console.log(buttonsObj);
   
@@ -159,6 +152,22 @@ window.addEventListener('DOMContentLoaded', () => {
   let caps = false;
   window.addEventListener('click', interactWithTextarea);
   window.addEventListener('keydown', interactWithTextarea);
+
+  window.addEventListener('keydown', event => {
+    if (event.altKey && event.ctrlKey) {
+      setTimeout(changeLang, 100);
+    }
+  });
+
+  function changeLang() {
+    if (sessionStorage.getItem('lang') === 'en') {
+      sessionStorage.setItem('lang', 'ru');
+    } else if (sessionStorage.getItem('lang') === 'ru') {
+      sessionStorage.setItem('lang', 'en');
+    }
+    keyboard.remove();
+    keyboard = createKeyboard(sessionStorage.getItem('lang'), container);
+  }
 
   function interactWithTextarea(event) {
     let target;
@@ -218,10 +227,14 @@ window.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     if (event.repeat) return;
     let code = event.code;
+
     if (buttonsObj[code]) {
-      buttonsObj[code].classList.toggle('button_active');
-    } else return;
-    
+      if (event.type === 'keydown') {
+        buttonsObj[code].classList.add('button_active');
+      } else if (event.type === 'keyup') {
+        buttonsObj[code].classList.remove('button_active');
+      }
+    } else return;    
   }
   
   function changeButtonByClick(event) {
@@ -230,10 +243,10 @@ window.addEventListener('DOMContentLoaded', () => {
     if (event.type === 'mousedown') {
       if (!target) return;
       selectedButton = target;
-      selectedButton.classList.toggle('button_active');
+      selectedButton.classList.add('button_active');
     } else {
       if (!selectedButton) return;
-      selectedButton.classList.toggle('button_active');
+      selectedButton.classList.remove('button_active');
       selectedButton = null;
     }
   }
@@ -247,6 +260,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function createButton(key, code, shift, where) {
     const button = new KeyboardButton(key, code, shift);
+    // button.getElem().classList.remove('button_active');
+    // console.log(button.getElem().classList);
     where.insertAdjacentElement('beforeend', button.getElem());
 
     buttonsObj[code] = button.getElem();
@@ -268,7 +283,16 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function createKeyboard(keyboardArr, where) {
+  function createKeyboard(lang, where) {
+    let keyboardArr;
+    if (lang === 'en') {
+      keyboardArr = [enKeyboardRow1, enKeyboardRow2, enKeyboardRow3, enKeyboardRow4, enKeyboardRow5];
+    } else if (lang === 'ru') {
+      keyboardArr = [ruKeyboardRow1, ruKeyboardRow2, ruKeyboardRow3, ruKeyboardRow4, ruKeyboardRow5];
+    } else {
+      console.log('no lang!');
+    }
+
     const keyboard = document.createElement('div');
     keyboard.className = 'keyboard';
 
@@ -277,6 +301,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     where.insertAdjacentElement('beforeend', keyboard);
+    return keyboard;
   }
 
   // *Function to rebuild keyboardRow arrays into objects arrays
