@@ -1,0 +1,114 @@
+.button {
+  color: $letter-color;
+  font-size: 1rem;
+  font-weight: 700;
+
+  padding: 1em;
+  min-width: 3em;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  background-color: $button-color;
+  border: none;
+  border-radius: 5px;
+
+  // transition: 0.1s all;
+  transition:  0.1s all;
+  cursor: pointer;
+
+  // .button__main-symbol
+  &__main-symbol {
+    display: flex;
+    transition:  0.1s all;
+  }
+
+  // .button__icon
+  &__icon {
+    width: 1em;
+    height: 1em;
+    transition:  0.1s all;
+
+    g {
+      fill: $letter-color;
+    }
+
+    &_right {
+      transform: rotate(90deg);
+    }
+
+    &_down {
+      transform: rotate(180deg);
+    }
+
+    &_left {
+      transform: rotate(-90deg);
+    }
+  }
+
+  // .button__shift-symbol
+  &__shift-symbol {
+    position: absolute;
+    top: 9%;
+    left: 13%;
+
+    // font-size: 1.7rem;
+    font-size: 0.7rem;
+  }
+
+  &_func {
+    background-color: $func-button-color;
+  }
+
+  &_space {
+    width: 19rem;
+  }
+
+  &_right-shift {
+    width: 3em;
+  }
+
+  &_left-shift {
+    width: 7em;
+  }
+
+  &_enter {
+    width: 8em;
+  }
+
+  &_caps {
+    width: 6em;
+    padding: 0;
+  }
+
+  &_tab {
+    width: 7em;
+    padding: 0;
+  }
+
+  &:hover {
+    background-color: $letter-color;
+    color: $button-color;
+
+    .button__icon {
+      g {
+        fill: $button-color;
+      }
+    }
+  }
+
+  &_active,
+  &:active {
+    transform: translateY(2px);
+    background-color: $active-button-color;
+    color: $letter-color;
+
+    .button__icon {
+      g {
+        fill: $letter-color;
+      }
+    }
+  }
+}
