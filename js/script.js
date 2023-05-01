@@ -132,17 +132,13 @@ window.addEventListener('DOMContentLoaded', () => {
     sessionStorage.setItem('lang', 'en');
   }
 
-  // console.log(keyboardArr);
   const buttonsObj = {};
 
   const container = createCustomElem('main', 'container', 'afterbegin', document.body);
   createHeader();
   const textarea = createCustomElem('textarea', 'textarea', 'beforeend', container);
-
   let keyboard = createKeyboard(sessionStorage.getItem('lang'), container);
 
-  // console.log(buttonsObj);
-  
   window.addEventListener('keydown', changeButton);
   window.addEventListener('keyup', changeButton);
 
@@ -224,7 +220,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function changeButton(event) {
-    // console.log(event);
     event.preventDefault();
     if (event.repeat) return;
     let code = event.code;
@@ -261,8 +256,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function createButton(key, code, shift, where) {
     const button = new KeyboardButton(key, code, shift);
-    // button.getElem().classList.remove('button_active');
-    // console.log(button.getElem().classList);
     where.insertAdjacentElement('beforeend', button.getElem());
 
     buttonsObj[code] = button.getElem();
@@ -298,9 +291,7 @@ window.addEventListener('DOMContentLoaded', () => {
       keyboardArr = [enKeyboardRow1, enKeyboardRow2, enKeyboardRow3, enKeyboardRow4, enKeyboardRow5];
     } else if (lang === 'ru') {
       keyboardArr = [ruKeyboardRow1, ruKeyboardRow2, ruKeyboardRow3, ruKeyboardRow4, ruKeyboardRow5];
-    } else {
-      console.log('no lang!');
-    }
+    } 
 
     const keyboard = document.createElement('div');
     keyboard.className = 'keyboard';
@@ -312,32 +303,4 @@ window.addEventListener('DOMContentLoaded', () => {
     where.insertAdjacentElement('beforeend', keyboard);
     return keyboard;
   }
-
-  // *Function to rebuild keyboardRow arrays into objects arrays
-  // rebuildRowArr(keyboardCodesRow1, engKeyboardRow1Shift);
-  
-  // function rebuildRowArr(codesRow, keysRow) {
-  //   for (let i = 0; i < codesRow.length; i++) {
-  //     let obj = {};
-  //     obj[codesRow[i]] = keysRow[i];
-  //     keysRow[i] = obj;
-  //   }
-  //   console.log(keysRow);
-  // }
-  
-  // *Function to fill keyboardRow arrays
-  // let array = [];
-  // window.addEventListener('keydown', createButtonOnPush);
-  
-  // function createButtonOnPush(event) {
-  //   let key = event.key;
-  //   let code = event.code;
-  //   let button = new KeyboardButton(key, code);
-  //   container.insertAdjacentElement('beforeend', button.getElem());
-
-  //   let keyObj = {};
-  //   keyObj[code] = key;
-  //   array.push(keyObj);
-  //   console.log(array);
-  // }
 });
