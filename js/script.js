@@ -136,7 +136,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const buttonsObj = {};
 
   const container = createCustomElem('main', 'container', 'afterbegin', document.body);
-  const textarea = createCustomElem('textarea', 'textarea', 'afterbegin', container);
+  createHeader();
+  const textarea = createCustomElem('textarea', 'textarea', 'beforeend', container);
 
   let keyboard = createKeyboard(sessionStorage.getItem('lang'), container);
 
@@ -266,6 +267,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     buttonsObj[code] = button.getElem();
     return button;
+  }
+
+  function createHeader() {
+    const header = createCustomElem('h1', 'header', 'beforeend', container);
+    header.innerHTML = `
+    Hello! This is my virtual keyboard. Created on Windows.<br>
+    Change language layout by pressing ctrlLeft + altLeft.
+    `;
   }
 
   function fillRowFrom(keyboardRow, where) {

@@ -3,7 +3,7 @@
 
 .container {
   width: 840px;
-  margin: 100px auto;
+  margin: 10vh auto;
 }
 
 body {
@@ -13,3 +13,4 @@ body {
 @import 'components/button';
 @import 'components/keyboard';
 @import 'components/textarea';
+@import 'components/header';
