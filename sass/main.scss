@@ -1,16 +1,9 @@
 @import 'base/reset';
 @import 'abstracts/variables';
 
-.container {
-  width: 840px;
-  margin: 10vh auto;
-}
-
-body {
-  background-color: $main-bg-color;
-}
-
-@import 'components/button';
-@import 'components/keyboard';
-@import 'components/textarea';
 @import 'components/header';
+@import 'components/body';
+@import 'components/container';
+@import 'components/textarea';
+@import 'components/keyboard';
+@import 'components/button';
