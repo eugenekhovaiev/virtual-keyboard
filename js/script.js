@@ -7,17 +7,28 @@ window.addEventListener('DOMContentLoaded', () => {
       this.code = code;
 
       this.button = document.createElement('button');
+      this.button.setAttribute('data-code', code);
       this.button.className = 'button';
-
+      
       if (mainSymbol.length !== 1) {
         this.addModClass('button_func');
+        this.button.setAttribute('data-symbol', '');
+        this.button.setAttribute('data-shift-symbol', '');
       } else if (code.includes('Key')) {
+        this.button.setAttribute('data-symbol', mainSymbol);
         mainSymbol = mainSymbol.toUpperCase();
+        this.button.setAttribute('data-shift-symbol', mainSymbol);
+      } else {
+        this.button.setAttribute('data-symbol', mainSymbol);
+        this.button.setAttribute('data-shift-symbol', shiftSymbol);
       }
+
+      // if (code.includes('Key'))
 
       switch (code) {
         case 'Space':
           this.addModClass('button_space');
+          this.button.setAttribute('data-shift-symbol', ' ');
           break;
         case 'ShiftRight':
           this.addModClass('button_right-shift');
@@ -27,12 +38,39 @@ window.addEventListener('DOMContentLoaded', () => {
           break;
         case 'Enter':
           this.addModClass('button_enter');
+          this.button.setAttribute('data-symbol', '\n');
+          this.button.setAttribute('data-shift-symbol', '\n');
           break;
         case 'CapsLock':
           this.addModClass('button_caps');
+          this.button.setAttribute('data-symbol', 'caps');
           break;
         case 'Tab':
           this.addModClass('button_tab');
+          this.button.setAttribute('data-symbol', '\t');
+          this.button.setAttribute('data-shift-symbol', '\t');
+          break;
+        case 'ArrowLeft':
+          this.button.setAttribute('data-symbol', '\u2190');
+          this.button.setAttribute('data-shift-symbol', '\u2190');
+          break;
+        case 'ArrowUp':
+          this.button.setAttribute('data-symbol', '\u2191');
+          this.button.setAttribute('data-shift-symbol', '\u2191');
+          break;
+        case 'ArrowRight':
+          this.button.setAttribute('data-symbol', '\u2192');
+          this.button.setAttribute('data-shift-symbol', '\u2192');
+          break;
+        case 'ArrowDown':
+          this.button.setAttribute('data-symbol', '\u2193');
+          this.button.setAttribute('data-shift-symbol', '\u2193');
+          break;
+        case 'Backspace':
+          this.button.setAttribute('data-symbol', 'backspace');
+          break;
+        case 'Delete':
+          this.button.setAttribute('data-symbol', 'delete');
           break;
       }
       
@@ -56,7 +94,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const windowsIcon = `
   <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="0 0 20 20" version="1.1"> 
-  <title>windows [#174]</title>
   <desc>Created with Sketch.</desc>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
       <g id="Dribbble-Light-Preview" transform="translate(-60.000000, -7439.000000)" fill="#000000">
@@ -71,7 +108,6 @@ window.addEventListener('DOMContentLoaded', () => {
   function createIconWithClass(directionClass) {
     const arrowIcon = `
     <svg class="button__icon ${directionClass}" width="800px" height="800px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <title>triangle-filled</title>
       <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="drop" fill="#000000" transform="translate(32.000000, 42.666667)">
           <path d="M246.312928,5.62892705 C252.927596,9.40873724 258.409564,14.8907053 262.189374,21.5053731 L444.667042,340.84129 C456.358134,361.300701 449.250007,387.363834 428.790595,399.054926 C422.34376,402.738832 415.04715,404.676552 407.622001,404.676552 L42.6666667,404.676552 C19.1025173,404.676552 7.10542736e-15,385.574034 7.10542736e-15,362.009885 C7.10542736e-15,354.584736 1.93772021,347.288125 5.62162594,340.84129 L188.099293,21.5053731 C199.790385,1.04596203 225.853517,-6.06216498 246.312928,5.62892705 Z" id="Combined-Shape">
@@ -94,12 +130,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const engKeyboardRow3 = [{'CapsLock': 'Caps Lock'}, {'KeyA': 'a'}, {'KeyS': 's'}, {'KeyD': 'd'}, {'KeyF': 'f'}, {'KeyG': 'g'}, {'KeyH': 'h'}, {'KeyJ': 'j'}, {'KeyK': 'k'}, {'KeyL': 'l'}, {'Semicolon': ';', shift: ':'}, {'Quote': "'", shift: '"'}, {'Enter': 'Enter'}];
   const engKeyboardRow4 = [{'ShiftLeft': 'Shift'}, {'IntlBackslash': '\\', shift: "|"}, {'KeyZ': 'z'}, {'KeyX': 'x'}, {'KeyC': 'c'}, {'KeyV': 'v'}, {'KeyB': 'b'}, {'KeyN': 'n'}, {'KeyM': 'm'}, {'Comma': ',', shift: "<"}, {'Period': '.', shift: ">"}, {'Slash': '/', shift: "?"}, {'ArrowUp': `${createIconWithClass('button__icon_up')}`}, {'ShiftRight': 'Shift'}];
   const engKeyboardRow5 = [{'ControlLeft': 'Ctrl'}, {'MetaLeft': `${windowsIcon}`}, {'AltLeft': 'Alt'}, {'Space': ' '}, {'AltRight': 'Alt'}, {'MetaRight': `${windowsIcon}`}, {'ControlRight': 'Ctrl'}, {'ArrowLeft': `${createIconWithClass('button__icon_left')}`}, {'ArrowDown': `${createIconWithClass('button__icon_down')}`}, {'ArrowRight': `${createIconWithClass('button__icon_right')}`}];
-  // const engKeyboardRow1Shift = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+'];
-  // const engKeyboardRow1 = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'];
-  // const engKeyboardRow2 = ['Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete'];
-  // const engKeyboardRow3 = ['CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter'];
-  // const engKeyboardRow4 = ['Shift', '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift'];
-  // const engKeyboardRow5 = ['Control', 'Meta', 'Alt', ' ', 'Alt', 'Meta', 'ContextMenu', 'Control', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 
   const rusKeyboardRow1Shift = ['Ё', '!', "'", '№', ';', '%', ':', '?', '*', '(', ')', '_', '+'];
   const rusKeyboardRow1 = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'];
@@ -110,10 +140,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let keyboardArr = [engKeyboardRow1, engKeyboardRow2, engKeyboardRow3, engKeyboardRow4, engKeyboardRow5];
   // console.log(keyboardArr);
-
-  const container = createContainer(document.body);
-
   const buttonsObj = {};
+
+  const container = createCustomElem('main', 'container', 'afterbegin', document.body);
+  const textarea = createCustomElem('textarea', 'textarea', 'afterbegin', container);
 
   createKeyboard(keyboardArr, container);
 
@@ -125,9 +155,66 @@ window.addEventListener('DOMContentLoaded', () => {
   let selectedButton;
   window.addEventListener('mousedown', changeButtonByClick);
   window.addEventListener('mouseup', changeButtonByClick);
+  
+  let caps = false;
+  window.addEventListener('click', interactWithTextarea);
+  window.addEventListener('keydown', interactWithTextarea);
 
+  function interactWithTextarea(event) {
+    let target;
+    if (event.type === 'click') {
+      target = event.target.closest('.button');
+    } else {
+      target = buttonsObj[event.code];
+    }
+
+    if (!target) {
+      textarea.focus();
+      return;
+    }
+
+    let selectionStart = textarea.selectionStart;
+    let selectionEnd = textarea.selectionEnd;
+    let cursorPos = selectionStart;
+
+    if ((target.dataset.symbol === 'backspace' || target.dataset.symbol === 'delete') && selectionStart !== selectionEnd) {
+      textarea.value = textarea.value.slice(0, selectionStart) + textarea.value.slice(selectionEnd);
+      textarea.selectionStart = cursorPos;
+      textarea.selectionEnd = cursorPos;
+    } else if (target.dataset.symbol === 'backspace') {
+      textarea.value = textarea.value.slice(0, selectionStart - 1) + textarea.value.slice(selectionEnd);
+      textarea.selectionStart = cursorPos - 1;
+      textarea.selectionEnd = cursorPos - 1;
+    } else if(target.dataset.symbol === 'delete') {
+      textarea.value = textarea.value.slice(0, selectionStart) + textarea.value.slice(selectionEnd + 1);
+      textarea.selectionStart = cursorPos;
+      textarea.selectionEnd = cursorPos;
+    } else if (target.dataset.symbol === 'caps') {
+      caps = !caps;
+    } else {
+      let symbolToAdd;
+      if (event.shiftKey) {
+        symbolToAdd = target.dataset.shiftSymbol;
+      } else {
+        symbolToAdd = target.dataset.symbol;
+        if (caps) {
+          symbolToAdd = symbolToAdd.toUpperCase();
+        }
+      }
+  
+      if (target.dataset.symbol) {
+        textarea.value = textarea.value.slice(0, selectionStart) + symbolToAdd + textarea.value.slice(selectionEnd);
+        textarea.selectionStart = cursorPos + 1;
+        textarea.selectionEnd = cursorPos + 1;
+      }
+    }
+
+
+    textarea.focus();
+  }
 
   function changeButton(event) {
+    // console.log(event);
     event.preventDefault();
     if (event.repeat) return;
     let code = event.code;
@@ -151,11 +238,11 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function createContainer(where) {
-    const container = document.createElement('main');
-    container.className = 'container';
-    where.insertAdjacentElement('afterbegin', container);
-    return container;
+  function createCustomElem(tag, className, position, where) {
+    const elem = document.createElement(tag);
+    elem.className = className;
+    where.insertAdjacentElement(position, elem);
+    return elem;
   }
 
   function createButton(key, code, shift, where) {
@@ -166,15 +253,8 @@ window.addEventListener('DOMContentLoaded', () => {
     return button;
   }
 
-  function createRow(where) {
-    const row = document.createElement('div');
-    row.className = 'keyboard__row';
-    where.insertAdjacentElement('beforeend', row);
-    return row;
-  }
-
   function fillRowFrom(keyboardRow, where) {
-    const row = createRow(where);
+    const row = createCustomElem('div', 'keyboard__row', 'beforeend', where);
     keyboardRow.forEach(item => {
       const code = Object.keys(item)[0];
       const key = item[code];
